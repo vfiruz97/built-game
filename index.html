@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<title>Building Game</title>
+	<link rel='stylesheet' href='main.css'>	
+</head>
+<body>
+	<script type='text/javascript'>
+		function modify()
+		{
+			document.getElementById('letsgame').style.display = 'block';
+			document.getElementById('play').style.display = 'none';
+		}
+	</script>
+	<section>
+		<img src="pictures/tuchi0.png" alt='tuchi' class='tuchi tuchi0' />
+		<img src="pictures/tuchi.png" alt='tuchi' class='tuchi tuchi1' />
+		<img src="pictures/tuchi3.png" alt='tuchi' class='tuchi tuchi4' />
+		<img src="pictures/tuchi1.png" alt='tuchi' class='tuchi tuchi2' />
+		<img src="pictures/tuchi2.png" alt='tuchi' class='tuchi tuchi3' />
+		<a href='' id='play' onclick='event.preventDefault();modify()' class='play'>
+			<p>play building game</p>
+		</a>
+	</section>
+	<article id='letsgame'>
+		<form method='GET' action='menu.html'>
+			<p>
+				Пожалуйста, введите имя:
+				<input type='text' name='name' required autofocus='' placeholder='например: Никита' /><br><br>
+				<input type='submit' value="let's play game" />
+			</p>
+		</form>
+	</article>	
+</body>
+</html>

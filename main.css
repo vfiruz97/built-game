@@ -1,0 +1,87 @@
+body {	
+	overflow:auto;
+	background-color: white;
+	margin: 0px;
+	padding: 0px;
+	background: repeating-radial-gradient( #42c2ff, #5b75ff);
+	-webkit-background: repeating-radial-gradient( #42c2ff, #5b75ff);
+	cursor: pointer;
+	font-family: Florence, cursive;
+	cursor: url("cursor.png")25 15, pointer!important;
+}
+
+html {
+	cursor: url("cursor.png")25 15, pointer!important;
+}
+
+input:hover { cursor: url("cursor.png")25 15, pointer!important;}
+a:link    { cursor: url("cursor.png")25 15, pointer!important;}
+a:visited { cursor: url("cursor.png")25 15, pointer!important;}
+a:hover   { cursor: url("cursor.png")25 15, pointer!important;}
+a:active  { cursor: url("cursor.png")25 15, pointer!important;}
+
+html.dragging-something * {
+	cursor: -moz-grabbing !important;
+	cursor: -webkit-grabbing !important;
+	cursor: grabbing !important;
+}
+
+img.tuchi0 {
+	height:150px;
+	width:250px;
+	animation-name: colorchange;  
+	animation-duration: 2s;
+	animation-delay: 0s;
+	animation-direction: alternate-reverse;
+	animation-iteration-count: infinite;
+}
+
+img.tuchi1, img.tuchi2, img.tuchi3 {height:150px;}
+img.tuchi4 {height:200px; width:300px; opacity:0.8;}
+
+@keyframes colorchange {
+	0% 	{width:250px;}
+	100% {width:275px;}
+}
+
+a.play {
+	text-align: center;
+	font-size: 86px;
+	text-decoration: none;
+	color: green;
+	font-variant:small-caps;
+}
+
+a.play:hover {
+	text-shadow: 2px 2px 3px green;
+}
+
+#letsgame {
+	width:80%; 
+	height:200px;
+	background-color: rgb(0,255,0,0.9);
+	position:absolute;
+	left:150px;
+	top:250px;
+	color:white; 
+	display:none;
+}
+
+input[type=text] {
+	margin:10px;
+	padding:3px;
+	border-radius:10px;
+}
+input[type=submit] {
+	margin:10px;
+	padding:3px;
+	border-radius:10px;
+	width:200px; 
+	color:green;
+	font-weight:bolder;
+	font-variant:small-caps;
+}
+form:first-child {
+	padding:50px;
+	text-align:center;
+}

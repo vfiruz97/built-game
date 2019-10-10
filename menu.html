@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<title>Building Game</title>
+	<link rel='stylesheet' href='menu.css'>	
+</head>
+<body>
+	<section>
+		<p id='hello'> Hello Builder </p>	
+		<img src="pictures/menu/l1.png" alt='menu' id='menu' class='menu' usemap="#planetmap"/>
+		<map name="planetmap" style='display:inline; cursor: url("cursor.png")25 15, pointer!important'>
+			<area shape="circle" id='level1' id='level1' coords="150,350,150" alt="leve1" href="game.html" title='Lavel 1'>
+		</map>	
+	</section>
+	<script type='text/javascript'>
+		function getUrlVars() 
+		{
+			var vars = {};
+			var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+				vars[key] = value;
+			});
+			return vars;
+		}
+		var element = document.getElementById("hello");
+		element.innerHTML = "hi, " + getUrlVars()["name"] + "!";
+		document.getElementById("level1").setAttribute('href', 'game.html?name='+getUrlVars()["name"]);	
+		var l2 = getUrlVars()["level"];
+		if(l2 == 'twoo')
+			document.getElementById("menu").setAttribute('src', 'pictures/menu/1112.png');	
+	</script>
+</body>
+</html>

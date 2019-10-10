@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset='UTF-8'>
+	<title>Building Game</title>
+	<link rel='stylesheet' href='game.css'>	
+</head>
+<body onResize="refresh()">
+	<div id='section'>
+		<img src="pictures/kran.png" id='pc1' class='pc pc1' alt='pc1' />	
+		<img src="pictures/kran.png" id='pc11' class='pc pc11' alt='pc1' />	
+		<img onclick='position();' src="pictures/krang.png" id='pc2' class='pc pc2' alt='pc2' />
+	</div>
+	<p class='priv'> Нажмите на кран, что бы блоки попали на фундамент! </p>
+	<img src='pictures/menu/041.gif' alt='fundamenttheme' class='pc fundamenttheme dzc' />
+	<img src='pictures/fun.png' alt='fundament' class='pc fundament dzc' />
+	
+	<article id='letsgame'>	
+		<p id='winner'> Win! </p>
+		<p class='pnextlevel'>		
+			<a id='next' class='next'> Next Level-> </a>
+		</p>
+		<div class='divadvance'>		
+			<a id='' class='hrefsitest' href='http://портал-стройка.рф/catalog/bani' >
+				ПОПУЛЯРНЫЕ ПРОЕКТЫ. ВИЗУАЛИЗИРУЕМ ЛЮБОЙ ПРОЕКТ ИЗ ИНТЕРНЕТА НА ВАШЕМ УЧАСТКЕ <br><br>
+				<img src='pictures/menu/d1.png' />
+				<img src='pictures/menu/d2.png' />
+				<img src='pictures/menu/d3.png' />
+			</a>
+		</div>	
+	</article>
+	<span id='error' class='error'>Eror: 0!<span>	
+
+		<script type='text/javascript'>
+			function refresh() { location.reload(); }
+			function position()
+			{
+				var el = document.getElementById('pc2').getBoundingClientRect();
+				//alert(el.top+'-'+el.left);	
+				document.getElementById('pc2').src= 'pictures/kran.png';
+				var kirpich = document.createElement('img');
+				kirpich.setAttribute('class', 'pc pc3 dzc');
+				kirpich.setAttribute('alt', 'pc3');		
+				kirpich.setAttribute('id', 'pc3');		
+				
+				if (localStorage.getItem("corectC") !== null) 
+					corectCount = localStorage.getItem("corectC");
+				else 
+					corectCount=0;
+				if (corectCount==3){
+					kirpich.setAttribute('src', 'pictures/roof1.png');
+				}
+				else {
+					kirpich.setAttribute('src', 'pictures/kirpich1.png');
+				}
+				
+				//kirpich.setAttribute('src', 'pictures/kirpich1.png');
+				kirpich.setAttribute('style', 'top:'+el.top+'px');
+				kirpich.setAttribute('style', 'left:'+el.left+'px');
+				kirpich.style.top = el.top+'px;';
+				kirpich.style.left = el.left+'px;';
+				var parent = document.getElementById('pc2');
+				parent.parentNode.insertBefore(kirpich, parent.nextSibling);
+				parent.removeAttribute("onclick");
+				
+				var elem = document.getElementById("pc3");   
+				var pos = 0;
+				var corectCount =0;
+				var errorCount =0;
+				var wH = window.innerHeight;
+				var wW = window.innerWidth;
+				var funGW1 = wW/2 - 100;
+				var funGW2 = wW/2 - 100+100;
+				var placeKir = window.innerHeight-115;
+				var opacity  = 0;
+				localStorage.setItem('opacity', 0);
+				if(el.left >= funGW1 && el.left <= funGW2){
+
+					if (localStorage.getItem("corectC") !== null) 
+						corectCount = localStorage.getItem("corectC");
+					corectCount++;
+					localStorage.setItem('corectC', corectCount);
+					
+					
+					placeKir -= corectCount * 100;			
+					if(corectCount == 4){
+
+						document.getElementById('letsgame').style.display = 'block';
+						document.getElementById('letsgame').style.width = window.innerWidth+'px';
+						document.getElementById('letsgame').style.height = window.innerHeight+'px';
+						document.getElementById('letsgame').style.zIndex = '100';			
+					}			
+				} else {
+					
+					localStorage.setItem('opacity', 1);
+					
+					if (localStorage.getItem("errorCount") !== null) 
+						errorCount = localStorage.getItem("errorCount");
+					errorCount++;
+					localStorage.setItem('errorCount', errorCount);
+					var element = document.getElementById("error");
+					element.innerHTML = "Error: " + errorCount + "!";
+				}
+				var id = setInterval(frameBottom, 5);
+				function frameBottom() {
+
+					if (pos == placeKir) {
+						clearInterval(id);
+						if(localStorage.getItem("opacity") == 1)
+							elem.style.opacity =0.0; 
+						else
+							elem.style.boxShadow ="";
+					} else {
+						pos++; 
+						elem.style.top = pos + "px"; 
+						if(localStorage.getItem("opacity") == 1){
+							elem.style.boxShadow ="8px 8px 3px red";
+						} else {
+							elem.style.boxShadow ="8px 8px 3px green";
+						}
+
+					}
+				}
+			}
+			
+			function myMove() {
+				var elem = document.getElementById("pc2");   
+				var pos = 0;
+				var id = setInterval(frame, 5);
+				function frame() {
+					if (pos == window.innerWidth) {
+						clearInterval(id);
+						myMove();
+						if (localStorage.getItem("corectC") !== null) 
+							corectCount = localStorage.getItem("corectC");
+						else 
+							corectCount=0;
+						if (corectCount==3){
+							document.getElementById('pc2').src= 'pictures/roof.png';
+						}
+						else{
+							document.getElementById('pc2').src= 'pictures/krang.png';
+						}
+						document.getElementById('pc2').setAttribute('onclick', "position()");
+					} else {
+						pos++; 
+						elem.style.right = pos + "px"; 
+					}
+				}
+			}
+			
+			function getUrlVars() 
+			{
+				var vars = {};
+				var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+					vars[key] = value;
+				});
+				return vars;
+			}
+			var element = document.getElementById("winner");
+			element.innerHTML = "You win, " + getUrlVars()["name"] + "!";
+			var element = document.getElementById("next");
+			element.setAttribute('href', "menu.html?name="+ getUrlVars()["name"] +"&level=twoo");
+			var id = setTimeout(myMove, 5000);
+			localStorage.clear();
+		</script>
+	</body>
+</html>
